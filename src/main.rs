@@ -1,5 +1,6 @@
 mod cat;
 mod echo;
+mod grep;
 
 use std::env;
 use std::io::{Error, ErrorKind};
@@ -26,6 +27,7 @@ fn usage() {
     println!("The execution commands are:");
     println!("\t- {}", echo::SYNOPSIS);
     println!("\t- {}", cat::SYNOPSIS);
+    println!("\t- {}", grep::SYNOPSIS);
 }
 
 fn run(args: &[String]) -> std::io::Result<i32> {
@@ -39,10 +41,14 @@ fn run(args: &[String]) -> std::io::Result<i32> {
             Ok(()) => return Ok(status::SUCCESS),
             Err(e) => return Err(e),
         },
+        "grep" => match grep::run(&args[1..]) {
+            Ok(()) => return Ok(status::SUCCESS),
+            Err(e) => return Err(e),
+        },
         _ => {
             return Err(Error::new(
                 ErrorKind::InvalidInput,
-                "invalid parameter was given",
+                format!("`{}` is unknown command", cmd),
             ));
         }
     };
