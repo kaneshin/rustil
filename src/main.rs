@@ -1,5 +1,6 @@
 mod cat;
 mod echo;
+mod fcat;
 mod grep;
 
 use std::env;
@@ -27,6 +28,7 @@ fn usage() {
     println!("The execution commands are:");
     println!("\t- {}", echo::SYNOPSIS);
     println!("\t- {}", cat::SYNOPSIS);
+    println!("\t- {}", fcat::SYNOPSIS);
     println!("\t- {}", grep::SYNOPSIS);
 }
 
@@ -38,6 +40,10 @@ fn run(args: &[String]) -> std::io::Result<i32> {
             Err(e) => return Err(e),
         },
         "cat" => match cat::run(&args[1..]) {
+            Ok(()) => return Ok(status::SUCCESS),
+            Err(e) => return Err(e),
+        },
+        "fcat" => match fcat::run(&args[1..]) {
             Ok(()) => return Ok(status::SUCCESS),
             Err(e) => return Err(e),
         },
