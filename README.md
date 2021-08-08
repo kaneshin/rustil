@@ -1,6 +1,6 @@
 # RusTIL
 
-RUSTIL = Rust + Today I Learned
+RusTIL = Rust + Today I Learned
 
 ## License
 
